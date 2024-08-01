@@ -10,6 +10,8 @@ import wind_icon from "../../assets/wind.png";
 import humidity_icon from "../../assets/humidity.png";
 const Weather = () => {
     const inputRef = useRef();
+    const [weatherData, setWeatherData] = useState(false);
+
     const allIcons = {
         "01d": clear_icon,
         "01n": clear_icon,
@@ -41,6 +43,8 @@ const Weather = () => {
                 alert(data.message);
                 return;
             }
+
+            console.log(data)
             const icon = allIcons[data.weather[0].icon] || clear_icon;
             setWeatherData({
                 humidity: data.main.humidity,
@@ -49,13 +53,12 @@ const Weather = () => {
                 location: data.name,
                 icon: icon,
             });
+
         } catch (err) {
             setWeatherData(false);
             console.log(err);
         }
     };
-
-    const [weatherData, setWeatherData] = useState(false);
 
     useEffect(() => {
         search("kanpur");
@@ -89,7 +92,7 @@ const Weather = () => {
                         <div className="col">
                             <img src={wind_icon} alt="" />
                             <div>
-                                <p>{weatherData.speed}km/hr</p>
+                                <p>{weatherData.windSpeed}km/hr</p>
                                 <span>Wind Speed</span>
                             </div>
                         </div>
